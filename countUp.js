@@ -122,6 +122,7 @@ function countUp(target, startVal, endVal, decimals, duration, options) {
             self.rAF = requestAnimationFrame(self.count);
         } else if (self.resumeCallback != null){
             self.resumeCallback();
+            self.resumeCallback = null;
         } else if (self.completeCallback != null) {
             self.completeCallback();
         }
@@ -156,20 +157,22 @@ function countUp(target, startVal, endVal, decimals, duration, options) {
         self.startTime = null;
         self.resumeCallback = null;
         if (newEndVal != null && duration != null) {
-            _refreshIsCountDown();
-            // refresh values.
-            if (this.isRunnig()) {
-                self.duration = self.resumeDuration;
-                self.startVal = self.frameVal;
+            if (newEndVal != self.endVal) {
+                _refreshIsCountDown();
+                // refresh values.
+                if (this.isRunnig()) {
+                    self.duration = self.resumeDuration;
+                    self.startVal = self.frameVal;
 
-                cancelAnimationFrame(self.rAF);
-                requestAnimationFrame(self.count);
+                    cancelAnimationFrame(self.rAF);
+                    requestAnimationFrame(self.count);
 
-                this.resumeCallback = function() {
+                    this.resumeCallback = function() {
+                        _handleResumeCount(newEndVal, duration);
+                    }
+                } else {
                     _handleResumeCount(newEndVal, duration);
                 }
-            } else {
-                _handleResumeCount(newEndVal, duration);
             }
         } else {
             // keep originals.

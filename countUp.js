@@ -114,7 +114,7 @@ function countUp(target, startVal, endVal, decimals, duration, options) {
 
             self.d.innerHTML = progressVal;
             // fire progress callback
-            if (self.progressCallback != null) self.progressCallback(progressVal);
+            if (self.progressCallback != null) self.progressCallback(Number(progressVal));
         };
 
         // whether to continue

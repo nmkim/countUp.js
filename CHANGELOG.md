@@ -1,4 +1,8 @@
 # Changelog
+### v 1.1.0.1 (4/3/14) - @nmkim
+ - the resume func supported new end value with duration.
+ - added progress callback.
+ - fixed sets the progress value when a no changed value.
 
 ### v 1.1.0 (2/21/14)
 
